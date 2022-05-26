@@ -1,5 +1,9 @@
 <?php
-include 'config/constants.php';
+include('config/constants.php');
+//Get the list ID from URL
+
+$list_id_url = $_GET['list_id'];
+
 ?>
 
 <html>
@@ -10,7 +14,6 @@ include 'config/constants.php';
 </head>
 
 <body>
-
   <div class="wrapper">
 
     <h1>ALEXANDRE TASK MANAGER</h1>
@@ -61,40 +64,12 @@ include 'config/constants.php';
 
     <!-- Menu Ends Here -->
 
-    <!-- Tasks starts Here--->
-
-    <p>
-      <?php
-
-      if (isset($_SESSION['add'])) {
-        echo $_SESSION['add'];
-        unset($_SESSION['add']);
-      }
-
-      if (isset($_SESSION['delete'])) {
-        echo $_SESSION['delete'];
-        unset($_SESSION['delete']);
-      }
-
-      if (isset($_SESSION['update'])) {
-        echo $_SESSION['update'];
-        unset($_SESSION['update']);
-      }
-
-
-      if (isset($_SESSION['delete_fail'])) {
-        echo $_SESSION['delete_fail'];
-        unset($_SESSION['delete_fail']);
-      }
-
-      ?>
-    </p>
-
-    <div class="all-tasks">
+    <div class="all-task">
 
       <a class="btn-primary" href="<?php echo SITEURL; ?>add-task.php">Add Task</a>
 
       <table class="tbl-full">
+
         <tr>
           <th>S.N.</th>
           <th>Task Name</th>
@@ -105,32 +80,25 @@ include 'config/constants.php';
 
         <?php
 
-        //Connect Database
         $conn = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD) or die(mysqli_connect_error());
 
         //Select Database
         $db_select = mysqli_select_db($conn, DB_NAME) or die(mysqli_connect_error());
 
-        //Create SQL Query to Get Data From Database
-        $sql = "SELECT * FROM tbl_tasks";
+        //SQL Query to display tasks by list selected
+        $sql = "SELECT * FROM tbl_tasks WHERE list_id=$list_id_url";
 
         //Execute Query
         $res = mysqli_query($conn, $sql);
 
-        //Check wheither the Query executed or not
         if ($res == true) {
-
-          //Display the Tasks from Database
-          //Count the Tasks on Database First
+          //Displqy the tasks based on list
+          //count the rows
           $count_rows = mysqli_num_rows($res);
 
-          //Create Serial Variable
-          $sn = 1;
-
-          //Check Wheither there is tasks on database or not
           if ($count_rows > 0) {
 
-            //Data is in Database
+            //We have tasks on this list
             while ($row = mysqli_fetch_assoc($res)) {
               $task_id = $row['task_id'];
               $task_name = $row['task_name'];
@@ -140,7 +108,7 @@ include 'config/constants.php';
         ?>
 
               <tr>
-                <td><?php echo $sn++; ?>. </td>
+                <td>1. </td>
                 <td><?php echo $task_name; ?></td>
                 <td><?php echo $priority; ?></td>
                 <td><?php echo $deadline; ?></td>
@@ -148,35 +116,25 @@ include 'config/constants.php';
                   <a href="<?php echo SITEURL;  ?>update-task.php?task_id=<?php echo $task_id;  ?>">Update</a>
 
                   <a href="<?php echo SITEURL; ?>delete-task.php?task_id=<?php echo $task_id; ?>"> Delete</a>
-
-
-
                 </td>
               </tr>
 
             <?php
             }
           } else {
-            //No Data in Database
+            //No Tasks on this list
             ?>
-
             <tr>
-              <td colspan=" 5">No Task Added Yet.
-              </td>
+              <td colspan="5">No Tasks added on this list.</td>
             </tr>
-
         <?php
-
           }
         }
 
         ?>
 
       </table>
-
     </div>
-
-    <!-- Tasks Ends Here--->
 
   </div>
 </body>

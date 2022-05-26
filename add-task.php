@@ -6,115 +6,117 @@ include 'config/constants.php';
 
 <head>
   <title>Task Manager With PHP and MYSQL</title>
+  <link rel="stylesheet" href="<?php echo SITEURL; ?>css/style.css">
 </head>
 
 <body>
+  <div class="wrapper">
 
-  <h1>ALEXANDRE TASK MANAGER</h1>
+    <h1>ALEXANDRE TASK MANAGER</h1>
 
-  <a href="<?php echo SITEURL; ?>">Home</a>
+    <a class="btn-secondary" href="<?php echo SITEURL; ?>">Home</a>
 
-  <h3>Add Task Page</h3>
+    <h3>Add Task Page</h3>
 
-  <p>
-    <?php
+    <p>
+      <?php
 
-    if (isset($_SESSION['add_fail'])) {
-      echo $_SESSION['add_fail'];
-      unset($_SESSION['add_fail']);
-    }
+      if (isset($_SESSION['add_fail'])) {
+        echo $_SESSION['add_fail'];
+        unset($_SESSION['add_fail']);
+      }
 
-    ?>
+      ?>
 
-  </p>
+    </p>
 
-  <form action="" method="POST">
+    <form action="" method="POST">
 
-    <table>
-      <tr>
-        <td>Task Name: </td>
-        <!--HTML VALIDATION-->
-        <td><input type="text" name="task_name" placeholder="Type your Task Name" required="required"></td>
-      </tr>
+      <table class="tbl-half">
+        <tr>
+          <td>Task Name: </td>
+          <!--HTML VALIDATION-->
+          <td><input type="text" name="task_name" placeholder="Type your Task Name" required="required"></td>
+        </tr>
 
-      <tr>
-        <td>Task Description: </td>
-        <td><textarea name="task_description" placeholder="Type Task Description"></textarea></td>
-      </tr>
+        <tr>
+          <td>Task Description: </td>
+          <td><textarea name="task_description" placeholder="Type Task Description"></textarea></td>
+        </tr>
 
-      <tr>
-        <td>Select List: </td>
-        <td>
-          <select name="list_id">
+        <tr>
+          <td>Select List: </td>
+          <td>
+            <select name="list_id">
 
-            <?php
-            //Connect Database
-            $conn = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD) or die(mysqli_connect_error());
+              <?php
+              //Connect Database
+              $conn = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD) or die(mysqli_connect_error());
 
-            //Select Database
-            $db_select = mysqli_select_db($conn, DB_NAME) or die(mysqli_connect_error());
+              //Select Database
+              $db_select = mysqli_select_db($conn, DB_NAME) or die(mysqli_connect_error());
 
-            //SQL Query to get the list from table
-            $sql = "SELECT * FROM tbl_lists";
+              //SQL Query to get the list from table
+              $sql = "SELECT * FROM tbl_lists";
 
-            //Execute Query
-            $res = mysqli_query($conn, $sql);
+              //Execute Query
+              $res = mysqli_query($conn, $sql);
 
-            //Check wheither the SLQ query executed or not
+              //Check wheither the SLQ query executed or not
 
-            if ($res == true) {
-              //Create variable to count rows
-              $count_rows = mysqli_num_rows($res);
+              if ($res == true) {
+                //Create variable to count rows
+                $count_rows = mysqli_num_rows($res);
 
-              //If there is data in database display all in dropdown else display none as option
-              if ($count_rows > 0) {
-                //display All lists on dropdown from database
-                while ($row = mysqli_fetch_array($res)) {
-                  $list_id = $row['list_id'];
-                  $list_name = $row['list_name'];
-            ?>
-            <option value="<?php echo $list_id; ?>"><?php echo $list_name; ?></option>
-            <?php
+                //If there is data in database display all in dropdown else display none as option
+                if ($count_rows > 0) {
+                  //display All lists on dropdown from database
+                  while ($row = mysqli_fetch_array($res)) {
+                    $list_id = $row['list_id'];
+                    $list_name = $row['list_name'];
+              ?>
+                    <option value="<?php echo $list_id; ?>"><?php echo $list_name; ?></option>
+                  <?php
 
+                  }
+                } else {
+                  //Display none as option
+                  ?>
+                  <option value="0">None</option>
+
+              <?php
                 }
-              } else {
-                //Display none as option
-                ?>
-            <option value="0">None</option>
-
-            <?php
               }
-            }
 
-            ?>
-          </select>
-        </td>
-      </tr>
+              ?>
+            </select>
+          </td>
+        </tr>
 
-      <tr>
-        <td>Priority: </td>
-        <td>
-          <select name="priority">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-        </td>
-      </tr>
+        <tr>
+          <td>Priority: </td>
+          <td>
+            <select name="priority">
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </td>
+        </tr>
 
-      <tr>
-        <td>Deadline: </td>
-        <td><input type="date" name="deadline"></td>
-      </tr>
+        <tr>
+          <td>Deadline: </td>
+          <td><input type="date" name="deadline"></td>
+        </tr>
 
-      <tr>
-        <td><input type="submit" name="submit" value="SAVE"></td>
-      </tr>
+        <tr>
+          <td><input class="btn-primary btn-lg" type="submit" name="submit" value="SAVE"></td>
+        </tr>
 
-    </table>
+      </table>
 
-  </form>
-
+    </form>
+  </div>
 </body>
 
 </html>

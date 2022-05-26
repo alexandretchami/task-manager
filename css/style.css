@@ -1,0 +1,88 @@
+/*
+Theme - Alexandre Task Manager
+Version - 2.0
+Author - Alexandre Tchami
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.wrapper {
+    width: 70%;
+    margin: 0 auto;
+    padding: 2%;
+}
+
+h1 {
+    color: #20bf6b;
+    margin-bottom: 2%;
+}
+
+h3 {
+    margin: 2% 0;
+}
+
+.menu {
+    margin-bottom: 2%;
+}
+
+.menu a {
+    font-weight: bold;
+    margin-right: 1%;
+    color: #fc5c65;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.btn-primary {
+    background-color: #fed330;
+    padding: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.btn-secondary {
+    background-color: #fc5c65;
+    padding: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #a55eea;
+}
+
+.btn-primary:hover {
+    background-color: #f7b731;
+}
+
+.btn-lg {
+    width: 50%;
+}
+
+.tbl-full {
+    width: 100%;
+}
+
+table tr th {
+    text-align: left;
+    border-bottom: 1px solid black;
+    padding: 1%;
+    padding-top: 3%;
+}
+
+table tr td {
+    padding: 1%;
+}
+
+.tbl-half {
+    width: 40%;
+}

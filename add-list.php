@@ -6,56 +6,61 @@ include('config/constants.php');
 
 <head>
   <title>Task Manager with PHP and MYSQL</title>
+  <link rel="stylesheet" href="<?php echo SITEURL; ?>css/style.css">
 </head>
 
 <body>
-  <h1>ALEXNADRE TASK MANAGER</h1>
+  <div class="wrapper">
 
-  <a href="<?php echo SITEURL; ?>">Home</a>
-  <a href="<?php echo SITEURL; ?>manage-list.php">Manage Lists</a>
+    <h1>ALEXNADRE TASK MANAGER</h1>
 
-  <h3>Add List Page</h3>
+    <a class="btn-secondary" href="<?php echo SITEURL; ?>">Home</a>
+    <a class="btn-secondary" href="<?php echo SITEURL; ?>manage-list.php">Manage Lists</a>
 
-  <p>
-    <?php
+    <h3>Add List Page</h3>
 
-    //Check if the SESSIOn is created or not
-    if (isset($_SESSION['add_fail'])) {
+    <p>
+      <?php
 
-      //Display session message
-      echo $_SESSION['add_fail'];
-      //Remove the message after displaying once
-      unset($_SESSION['add_fail']);
-    }
+      //Check if the SESSIOn is created or not
+      if (isset($_SESSION['add_fail'])) {
 
-    ?>
-  </p>
+        //Display session message
+        echo $_SESSION['add_fail'];
+        //Remove the message after displaying once
+        unset($_SESSION['add_fail']);
+      }
 
-  <!-- Form to Add List Starts Here -->
+      ?>
+    </p>
 
-  <form action="" method="POST">
-    <table>
-      <tr>
-        <td>List Name: </td>
-        <td>
-          <input type="text" name="list_name" placeholder="Type List name Here" required="required" />
-        </td>
-      </tr>
+    <!-- Form to Add List Starts Here -->
 
-      <tr>
-        <td>List Description: </td>
-        <td>
-          <textarea name=" list_description" placeholder="Type List Description Here"></textarea>
-        </td>
-      </tr>
+    <form action="" method="POST">
 
-      <tr>
-        <td><input type="submit" name="submit" value="SAVE" /></td>
-      </tr>
-    </table>
-  </form>
+      <table class="tbl-half">
+        <tr>
+          <td>List Name: </td>
+          <td>
+            <input type="text" name="list_name" placeholder="Type List name Here" required="required" />
+          </td>
+        </tr>
 
-  <!-- Form to Add List Ends Here -->
+        <tr>
+          <td>List Description: </td>
+          <td>
+            <textarea name=" list_description" placeholder="Type List Description Here"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td><input class="btn-primary btn-lg" type="submit" name="submit" value="SAVE" /></td>
+        </tr>
+      </table>
+    </form>
+
+    <!-- Form to Add List Ends Here -->
+  </div>
 </body>
 
 </html>
